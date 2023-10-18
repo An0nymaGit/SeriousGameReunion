@@ -13,13 +13,11 @@ public class LaunchGameManager : MonoBehaviour
         foreach (var menu in menusActivity)
         {
             menu.SetActive(false);
-            menuInGame.SetActive(true);
         }
     }
 
     public void DoActivity(int index)
     {
-        menuInGame.SetActive(false);
         menusActivity[index].SetActive(true);
         Debug.Log(menusActivity[index].name);
     }

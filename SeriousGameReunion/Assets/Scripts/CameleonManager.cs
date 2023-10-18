@@ -45,14 +45,53 @@ public class CameleonManager : MonoBehaviour
         badStatTiredness = startingStats[4];
         badStatThickness = startingStats[5];
         badStatSickness = startingStats[6];
+        CheckStatus();
     }
     
-    void CheckStatus()
+    private void CheckStatus()
     {
         if (goodStatHealth >= 40)
         {
             
         }
+
+        textHealth.text = "Santé : " + goodStatHealth + "/100";
+        textEnergy.text = "Energie : " + goodStatEnergy + "/100";;
+        textHapiness.text = "Bonheur : " + goodStatHappiness + "/100";;
+        textHunger.text = "Faim : " + goodStatHunger + "/100";;
+
+    }
+
+    public void ChangeCameleonHealth(int value)
+    {
+        goodStatHealth += value;
+        CheckStatus();
     }
     
+    public void ChangeCameleonEnergy(int value)
+    {
+        goodStatEnergy += value;
+        CheckStatus();
+    }
+    
+    public void ChangeCameleonHappiness(int value)
+    {
+        goodStatHappiness += value;
+        CheckStatus();
+    }
+    
+    public void ChangeCameleonHunger(int value)
+    {
+        goodStatHunger += value;
+        CheckStatus();
+    }
+    
+}
+
+public enum CameleonStats
+{
+    Health,
+    Energy,
+    Happiness,
+    Hunger,
 }
