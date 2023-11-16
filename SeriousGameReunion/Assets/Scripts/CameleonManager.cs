@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,8 @@ using TMPro;
 
 public class CameleonManager : MonoBehaviour
 {
+    public static CameleonManager instance;
+    
     [BoxGroup("Stat")] [SerializeField] private int goodStatHealth;
     [BoxGroup("Stat")] [SerializeField] private int goodStatEnergy;
     [BoxGroup("Stat")] [SerializeField] private int goodStatHappiness;
@@ -21,10 +24,20 @@ public class CameleonManager : MonoBehaviour
     [BoxGroup("Stat")] [SerializeField] private TextMeshProUGUI textHunger;
     
     [BoxGroup("DEBUG")] public List<int> startingStats = new (7);
-    
-    
-    
-    
+
+
+    private void Awake()
+    {
+        if (instance != null && instance != this) 
+        { 
+            Destroy(this); 
+        } 
+        else 
+        { 
+            instance = this; 
+        }
+    }
+
     void Start()
     {
         InitStats();
