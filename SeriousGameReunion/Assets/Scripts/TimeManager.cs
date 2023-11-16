@@ -9,6 +9,8 @@ using UnityEngine.UI;
 
 public class TimeManager : MonoBehaviour
 {
+    public static TimeManager instance;
+    
     [BoxGroup("Timer")] [SerializeField] private TextMeshProUGUI textTime;
     [BoxGroup("Timer")] [SerializeField] private TextMeshProUGUI textDay;
     [BoxGroup("Timer")] public int tempsMinute;
@@ -17,6 +19,8 @@ public class TimeManager : MonoBehaviour
     [BoxGroup("Timer")] [SerializeField] public Image imageHeure;
     [BoxGroup("Timer")] public Color[] colorsJourNuit;
     [BoxGroup("Timer")] public int[] horaireJourNuit;
+    [BoxGroup("Timer")] [SerializeField] private int delayTime = 10;
+    [BoxGroup("Timer")] [SerializeField] private int valueTime = 1;
 
     [BoxGroup("DEBUG")] [SerializeField] private KeyCode keyAdd;
     [BoxGroup("DEBUG")] [SerializeField] private int minutesAdd = 1;
@@ -26,12 +30,26 @@ public class TimeManager : MonoBehaviour
     [BoxGroup("DEBUG")] [SerializeField] private int initJour = 1;
         
 
+    
+    private void Awake()
+    {
+        if (instance != null && instance != this) 
+        { 
+            Destroy(this); 
+        } 
+        else 
+        { 
+            instance = this; 
+        }
+    }
+    
     void Start()
     {
         tempsMinute = initMinute;
         tempsHeure = initHeure;
         tempsJour = initJour;
         TimeUpdate();
+        
     }
 
     void FixedUpdate()
@@ -43,6 +61,20 @@ public class TimeManager : MonoBehaviour
         }
     }
 
+    public void LaunchTimer()
+    {
+        StartCoroutine(AddingTime());
+    }
+    
+    public IEnumerator AddingTime()
+    {
+        yield return new WaitForSecondsRealtime(delayTime);
+        AddTime(0,valueTime);
+        //Debug.Log("+1 min");
+        StartCoroutine(AddingTime());
+    }
+    
+    
     void TimeUpdate()
     {
         if (tempsMinute <= 9)
@@ -77,6 +109,7 @@ public class TimeManager : MonoBehaviour
             {
                 tempsHeure += 1;
                 tempsMinute = 0;
+                CameleonManager.instance.ChCamHunger(CameleonManager.instance.hungerPerHour);
                 if (tempsHeure >= 24)
                 {
                     tempsJour += 1;

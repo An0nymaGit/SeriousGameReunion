@@ -16,6 +16,8 @@ public class CameleonManager : MonoBehaviour
     [BoxGroup("Stat")] [SerializeField] private int badStatTiredness;
     [BoxGroup("Stat")] [SerializeField] private int badStatThickness;
     [BoxGroup("Stat")] [SerializeField] private int badStatSickness;
+    
+    [BoxGroup("Stat")] public int hungerPerHour = -5;
 
     [BoxGroup("Stat")] [SerializeField] private TextMeshProUGUI textHealth;
     [BoxGroup("Stat")] [SerializeField] private TextMeshProUGUI textEnergy;
@@ -75,7 +77,7 @@ public class CameleonManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.O))
         {
             ChCamHunger(maxHunger*10);
-            CheckThickness();
+            CheckHunger();
             
         }
         if (Input.GetKeyDown(KeyCode.F))
@@ -129,7 +131,7 @@ public class CameleonManager : MonoBehaviour
     public void ChCamHunger(int value)
     {
         goodStatHunger += value;
-        CheckThickness();
+        CheckHunger();
         CheckStatus();
     }
 
@@ -152,8 +154,13 @@ public class CameleonManager : MonoBehaviour
         }
     }
 
-    public void CheckThickness()
+    public void CheckHunger()
     {
+        if (goodStatHunger <= 0)
+        {
+            UiManager.instance.t_raisonGameOver.text = "Raison : La famine a mené votre caméléon à l'hôpital.";
+            Defeat();
+        }
         if (goodStatHunger >= maxHunger)
         {//si la faim est dépassé, la différence par 100 est rajouté en obésité
             badStatThickness += goodStatHunger - maxHunger;
