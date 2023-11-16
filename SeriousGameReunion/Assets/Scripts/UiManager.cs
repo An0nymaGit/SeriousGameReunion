@@ -1,13 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using Application = UnityEngine.Application;
 
 public class UiManager : MonoBehaviour
 {
+    public static UiManager instance;
     
+    public GameObject menuInGame;
+    public GameObject menuGameOver;
+
+    public TextMeshProUGUI t_raisonGameOver;
     
-    
+    private void Awake()
+    {
+        if (instance != null && instance != this) 
+        { 
+            Destroy(this); 
+        } 
+        else 
+        { 
+            instance = this; 
+        }
+    }
     
     void Start()
     {

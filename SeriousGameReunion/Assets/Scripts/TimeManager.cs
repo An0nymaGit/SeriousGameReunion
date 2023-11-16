@@ -81,6 +81,7 @@ public class TimeManager : MonoBehaviour
                 {
                     tempsJour += 1;
                     tempsHeure = 0;
+                    CameleonManager.instance.DailyStatusEvolution();
                 }
             }
         }
