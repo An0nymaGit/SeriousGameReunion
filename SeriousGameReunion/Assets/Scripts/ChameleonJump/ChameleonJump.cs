@@ -1,18 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
-public class ChameleonJump : MonoBehaviour
+namespace ChameleonJump
 {
-    // Start is called before the first frame update
-    void Start()
+    public class ChameleonJump : MonoBehaviour
     {
-        
-    }
+        public Transform chameleon;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        [SerializeField] private float jumpHeight = 3;
+        [SerializeField] private float jumpPower = 5;
+        [SerializeField] private float jumpDuration = 2;
+    
+        private void Start()
+        {
+            chameleon.DOJump(chameleon.position + Vector3.up * jumpHeight, jumpPower, 1, jumpDuration);
+        }
     }
 }
