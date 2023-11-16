@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace ChameleonJump
 {
@@ -10,6 +12,7 @@ namespace ChameleonJump
         
         public Transform chameleonTransform;
         public ChameleonCollision chameleonCollision;
+        public LaunchGameManager launchGameManager;
 
         [SerializeField] private Transform[] spawnPoints;
         public List<GameObject> currentObstacles;
@@ -26,14 +29,24 @@ namespace ChameleonJump
         private Tween _duck;
         private float _timer;
 
-        private void Start()
+        private bool _started;
+
+        private void Awake()
         {
             if (Instance != null && Instance != this) DestroyImmediate(gameObject);
             else Instance = this;
         }
-        
+
+        private void OnEnable()
+        {
+            _started = true;
+            CameleonManager.instance.ChCamEnergy(-12);
+            _timer = 0;
+        }
+
         private void Update()
         {
+            if (!_started) return;
             _timer += Time.deltaTime;
 
             if (_timer > timeToSpawn)
@@ -76,12 +89,18 @@ namespace ChameleonJump
 
         public void LoseGame()
         {
+            _started = false;
+            
             foreach (var obstacle in currentObstacles)
             {
                 Destroy(obstacle);
             }
+            
+            CameleonManager.instance.ChCamHealth(currentObstacles.Count);
+            
             currentObstacles.Clear();
-            Debug.Log("Perdu");
+            
+            launchGameManager.ReturnToMenuInGame();
         }
     }
 }
