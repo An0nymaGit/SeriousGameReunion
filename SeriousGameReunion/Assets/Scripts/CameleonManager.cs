@@ -62,25 +62,25 @@ public class CameleonManager : MonoBehaviour
 
     }
 
-    public void ChangeCameleonHealth(int value)
+    public void ChCamHealth(int value)
     {
         goodStatHealth += value;
         CheckStatus();
     }
     
-    public void ChangeCameleonEnergy(int value)
+    public void ChCamEnergy(int value)
     {
         goodStatEnergy += value;
         CheckStatus();
     }
     
-    public void ChangeCameleonHappiness(int value)
+    public void ChCamHappiness(int value)
     {
         goodStatHappiness += value;
         CheckStatus();
     }
     
-    public void ChangeCameleonHunger(int value)
+    public void ChCamnHunger(int value)
     {
         goodStatHunger += value;
         CheckStatus();

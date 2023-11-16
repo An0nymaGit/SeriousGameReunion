@@ -6,6 +6,9 @@ using Application = UnityEngine.Application;
 public class UiManager : MonoBehaviour
 {
     
+    
+    
+    
     void Start()
     {
         Time.timeScale = 0;
