@@ -13,7 +13,7 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] public KeyCode key1;
     [SerializeField] public KeyCode key2;
 
-    void Start()
+    void OnEnable()
     {
         inventory.Add(new HealthyDish() { amount = 0, name = "Gratin de chouchou"});
         inventory.Add(new UnhealthyDish() { amount = 0, name = "Pain bouchon gratiné"});

@@ -12,7 +12,7 @@ public class Note : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        speed = 4f;
+        speed = 100f;
     }
 
     void Start()
